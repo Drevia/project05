@@ -3,6 +3,7 @@ package com.openclassroom.project5.service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.openclassroom.project5.data.ReadDataFile;
 import com.openclassroom.project5.model.FireStationDTO;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,7 @@ public class FireStationServiceImpl implements FireStationService {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    @PostConstruct
+/*    @PostConstruct
     public void loadDataFromFile() throws IOException {
         File file = new File(getClass().getClassLoader().getResource("data.json").getFile());
 
@@ -35,6 +36,11 @@ public class FireStationServiceImpl implements FireStationService {
         if (personsNode != null) {
             fireStationDTOS = objectMapper.readValue(personsNode.traverse(), new TypeReference<List<FireStationDTO>>() {});
         }
+    }*/
+
+    @PostConstruct
+    public void loadData() throws IOException {
+        fireStationDTOS = ReadDataFile.loadDataFromFile("firestations", FireStationDTO.class);
     }
 
     public FireStationDTO getFireStation(Integer station, String address) {

@@ -5,17 +5,21 @@ import com.openclassroom.project5.model.MedicalRecordsDTO;
 import com.openclassroom.project5.model.PersonDto;
 import com.openclassroom.project5.service.FireStationServiceImpl;
 import com.openclassroom.project5.service.MedicalRecordsServiceImpl;
+import com.openclassroom.project5.service.PersonService;
 import com.openclassroom.project5.service.PersonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 public class SafetyNetController {
 
     @Autowired
-    PersonServiceImpl personService;
+    PersonService personService;
 
     @Autowired
     MedicalRecordsServiceImpl medicalService;
@@ -104,6 +108,14 @@ public class SafetyNetController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/communityEmail")
+    public String getEmailFromCity(@RequestParam(name = "city") String cityName){
+        List<PersonDto> personDtoList = personService.returnAllPerson();
+        personDtoList = personDtoList.stream().filter(personDto -> personDto.getCity().equalsIgnoreCase(cityName)).collect(Collectors.toList());
+        String email = personDtoList.stream().map(PersonDto::getEmail).toList().toString();
+        return email;
     }
 
 }

@@ -3,6 +3,8 @@ package com.openclassroom.project5.service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.openclassroom.project5.data.ReadDataFile;
+import com.openclassroom.project5.model.FireStationDTO;
 import com.openclassroom.project5.model.MedicalRecordsDTO;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -25,15 +27,8 @@ public class MedicalRecordsServiceImpl implements MedicalRecordsService{
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @PostConstruct
-    public void loadDataFromFile() throws IOException {
-        File file = new File(getClass().getClassLoader().getResource("data.json").getFile());
-
-        JsonNode jsonNode = objectMapper.readTree(file);
-
-        JsonNode personsNode = jsonNode.get("medicalrecords");
-        if (personsNode != null) {
-            medicalRecordsDTOS = objectMapper.readValue(personsNode.traverse(), new TypeReference<List<MedicalRecordsDTO>>() {});
-        }
+    public void loadData() throws IOException {
+        medicalRecordsDTOS = ReadDataFile.loadDataFromFile("medicalrecords", MedicalRecordsDTO.class);
     }
 
     public MedicalRecordsDTO getMedicalRecords(String firstName, String lastName) {

@@ -1,16 +1,12 @@
 package com.openclassroom.project5.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.openclassroom.project5.data.ReadDataFile;
 import com.openclassroom.project5.model.PersonDto;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,19 +18,9 @@ public class PersonServiceImpl implements PersonService {
 
     private List<PersonDto> personDtoList = new ArrayList<>();
 
-
-    private ObjectMapper objectMapper = new ObjectMapper();
-
     @PostConstruct
-    public void loadDataFromFile() throws IOException {
-        File file = new File(getClass().getClassLoader().getResource("data.json").getFile());
-
-        JsonNode jsonNode = objectMapper.readTree(file);
-
-        JsonNode personsNode = jsonNode.get("persons");
-        if (personsNode != null) {
-            personDtoList = objectMapper.readValue(personsNode.traverse(), new TypeReference<List<PersonDto>>() {});
-        }
+    public void loadData() throws IOException {
+        personDtoList = ReadDataFile.loadDataFromFile("persons", PersonDto.class);
     }
 
     public PersonDto getPersonByFullName(String firstName, String lastName) {
@@ -43,6 +29,11 @@ public class PersonServiceImpl implements PersonService {
                 .findFirst()
                 //.orElseThrow(PersonNotFoundException)
                 .orElse(null);
+    }
+
+    @Override
+    public List<PersonDto> returnAllPerson() {
+        return personDtoList;
     }
 
     @Override

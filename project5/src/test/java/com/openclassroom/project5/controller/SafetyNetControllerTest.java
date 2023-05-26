@@ -1,6 +1,7 @@
 package com.openclassroom.project5.controller;
 
 import com.openclassroom.project5.model.FireStationDTO;
+import com.openclassroom.project5.model.MedicalRecordsDTO;
 import com.openclassroom.project5.model.PersonDto;
 import com.openclassroom.project5.service.FireStationServiceImpl;
 import com.openclassroom.project5.service.MedicalRecordsServiceImpl;
@@ -128,6 +129,54 @@ public class SafetyNetControllerTest {
         ResponseEntity<FireStationDTO> response = controller.createFireStation(fireStationDTO);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(fireStationDTO, response.getBody());
+    }
+
+    @Test
+    public void testDeleteMedicalRecord() {
+        String firstName = "John";
+        String lastName = "Doe";
+        when(medicalRecordsServiceImpl.getMedicalRecords(firstName, lastName)).thenReturn(new MedicalRecordsDTO());
+        ResponseEntity<Void> response = controller.deleteMedicalRecords(firstName, lastName);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        verify(medicalRecordsServiceImpl).deleteMedicalRecords(firstName, lastName);
+    }
+
+    @Test
+    public void deleteMedicalRecordReturnNotFound() {
+        String firstName = "John";
+        String lastName = "Doe";
+        when(medicalRecordsServiceImpl.getMedicalRecords(any(), any())).thenReturn(null);
+        ResponseEntity<Void> response = controller.deleteMedicalRecords(firstName, lastName);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void testUpdateMedicalRecord() {
+        String firstName = "John";
+        String lastName = "Doe";
+        MedicalRecordsDTO medicalRecordsDTO = new MedicalRecordsDTO();
+        when(medicalRecordsServiceImpl.updateMedicalRecords(firstName, lastName, medicalRecordsDTO)).thenReturn(medicalRecordsDTO);
+        ResponseEntity<MedicalRecordsDTO> response = controller.updateMedicalRecords(firstName, lastName, medicalRecordsDTO);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(medicalRecordsDTO, response.getBody());
+    }
+
+    @Test
+    public void testUpdateMedicalRecordNotFound() {
+        String firstName = "John";
+        String lastName = "Doe";
+        MedicalRecordsDTO medicalRecordsDTO = new MedicalRecordsDTO();
+        when(medicalRecordsServiceImpl.updateMedicalRecords(firstName, lastName, medicalRecordsDTO)).thenReturn(null);
+        ResponseEntity<MedicalRecordsDTO> response = controller.updateMedicalRecords(firstName, lastName, medicalRecordsDTO);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void testCreateMedicalRecord() {
+        MedicalRecordsDTO medicalRecordsDTO = new MedicalRecordsDTO();
+        when(medicalRecordsServiceImpl.createMedicalRecords(medicalRecordsDTO)).thenReturn(medicalRecordsDTO);
+        ResponseEntity<MedicalRecordsDTO> response = controller.createMedicalRecords(medicalRecordsDTO);
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
 
 }
