@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -27,12 +28,11 @@ public class PersonServiceImpl implements PersonService {
         return personDtoList.stream()
                 .filter(p -> p.getFirstName().equals(firstName) && p.getLastName().equals(lastName))
                 .findFirst()
-                //.orElseThrow(PersonNotFoundException)
                 .orElse(null);
     }
 
     @Override
-    public List<PersonDto> returnAllPerson() {
+    public List<PersonDto> returnAllPersons() {
         return personDtoList;
     }
 
@@ -59,13 +59,17 @@ public class PersonServiceImpl implements PersonService {
             personDto.setAddress(updatePersonDto.getAddress());
             personDto.setZip(updatePersonDto.getZip());
         } else {
-            //Return exception quand une entyté n'est pas trouvé
-            //mettre l'exception dans le if et le reste en dehors
             return null;
         }
         return personDto;
     }
 
+    @Override
+    public List<String> getPersonsEmailByCity(String cityName) {
+        personDtoList = personDtoList.stream().filter(personDto -> personDto.getCity().equalsIgnoreCase(cityName)).collect(Collectors.toList());
+        List<String> email = personDtoList.stream().map(PersonDto::getEmail).toList();
 
+        return email;
+    }
 
 }

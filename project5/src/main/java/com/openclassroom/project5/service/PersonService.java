@@ -6,14 +6,15 @@ import java.util.List;
 
 public interface PersonService {
 
-    List<PersonDto> returnAllPerson();
+    List<PersonDto> returnAllPersons();
 
-    public void deletePerson(String firstName, String lastName);
+    void deletePerson(String firstName, String lastName);
 
-    public PersonDto createPerson(PersonDto personDto);
+    PersonDto createPerson(PersonDto personDto);
 
-    public PersonDto updatePerson(String firstName, String lastName, PersonDto updatePersonDto);
+    PersonDto updatePerson(String firstName, String lastName, PersonDto updatePersonDto);
 
     PersonDto getPersonByFullName(String firstName, String lastName);
 
+    List<String> getPersonsEmailByCity(String cityName);
 }

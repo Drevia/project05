@@ -67,4 +67,9 @@ public class MedicalRecordsServiceImpl implements MedicalRecordsService{
         }
         return medicalRecordsDTOS;
     }
+
+    @Override
+    public List<MedicalRecordsDTO> returnAllMedicalRecords() {
+        return medicalRecordsDTOS;
+    }
 }

@@ -6,7 +6,8 @@ import com.openclassroom.project5.model.PersonDto;
 import com.openclassroom.project5.service.FireStationServiceImpl;
 import com.openclassroom.project5.service.MedicalRecordsServiceImpl;
 import com.openclassroom.project5.service.PersonService;
-import com.openclassroom.project5.service.PersonServiceImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,8 @@ import java.util.stream.Collectors;
 
 @RestController
 public class SafetyNetController {
+
+    private final Logger logger = LogManager.getLogger(SafetyNetController.class);
 
     @Autowired
     PersonService personService;
@@ -31,9 +34,11 @@ public class SafetyNetController {
     public ResponseEntity<Void> deletePerson(@PathVariable String firstName, @PathVariable String lastName) {
         if(personService.getPersonByFullName(firstName, lastName) != null)
         {
+            logger.info("delete: "+ firstName + " " + lastName);
             personService.deletePerson(firstName, lastName);
             return ResponseEntity.ok().build();
         } else {
+            logger.warn("Person not found");
             return ResponseEntity.notFound().build();
         }
     }
@@ -41,6 +46,7 @@ public class SafetyNetController {
     @PostMapping("/person")
     public ResponseEntity<PersonDto> createPerson(@RequestBody PersonDto personDto) {
         PersonDto personDtoCreated = personService.createPerson(personDto);
+        logger.info("Created: " + personDto);
         return new ResponseEntity<>(personDtoCreated, HttpStatus.CREATED);
     }
 
@@ -48,8 +54,10 @@ public class SafetyNetController {
     public ResponseEntity<PersonDto> updatePerson(@PathVariable String firstName, @PathVariable String lastName, @RequestBody PersonDto personDto) {
         PersonDto personDtoUpdated = personService.updatePerson(firstName, lastName, personDto);
         if (personDtoUpdated != null) {
+            logger.info("Updated: " + personDtoUpdated);
             return new ResponseEntity<>(personDtoUpdated, HttpStatus.OK);
         } else {
+            logger.warn("Person to update not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -57,6 +65,7 @@ public class SafetyNetController {
     @PostMapping("/medicalRecords")
     public ResponseEntity<MedicalRecordsDTO> createMedicalRecords(@RequestBody MedicalRecordsDTO medicalRecordsDTO) {
         MedicalRecordsDTO medicalRecordsDTOCreated = medicalService.createMedicalRecords(medicalRecordsDTO);
+        logger.info("Created: " + medicalRecordsDTOCreated);
         return new ResponseEntity<>(medicalRecordsDTOCreated, HttpStatus.CREATED);
     }
 
@@ -65,8 +74,10 @@ public class SafetyNetController {
                                                                   @RequestBody MedicalRecordsDTO medicalRecordsDTO) {
         MedicalRecordsDTO updateMedicalRecords = medicalService.updateMedicalRecords(firstName, lastName, medicalRecordsDTO);
         if (updateMedicalRecords != null) {
+            logger.info("Updated: " + updateMedicalRecords);
             return new ResponseEntity<>(updateMedicalRecords, HttpStatus.OK);
         } else {
+            logger.warn("MedicalRecords not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -75,9 +86,11 @@ public class SafetyNetController {
     public ResponseEntity<Void> deleteMedicalRecords(@PathVariable String firstName, @PathVariable String lastName) {
         if(medicalService.getMedicalRecords(firstName, lastName) != null)
         {
+            logger.info("Deleting: " + firstName + " " + lastName + "'s MedicalRecords");
             medicalService.deleteMedicalRecords(firstName, lastName);
             return ResponseEntity.ok().build();
         } else {
+            logger.warn("MedicalRecords not found");
             return ResponseEntity.notFound().build();
         }
     }
@@ -111,11 +124,9 @@ public class SafetyNetController {
     }
 
     @GetMapping("/communityEmail")
-    public String getEmailFromCity(@RequestParam(name = "city") String cityName){
-        List<PersonDto> personDtoList = personService.returnAllPerson();
-        personDtoList = personDtoList.stream().filter(personDto -> personDto.getCity().equalsIgnoreCase(cityName)).collect(Collectors.toList());
-        String email = personDtoList.stream().map(PersonDto::getEmail).toList().toString();
-        return email;
+    public ResponseEntity<List<String>> getEmailFromCity(@RequestParam(name = "city") String cityName){
+        List<String> emails = personService.getPersonsEmailByCity(cityName);
+        return new ResponseEntity<>(emails, HttpStatus.OK);
     }
 
 }

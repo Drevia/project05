@@ -34,7 +34,6 @@ public class SafetyNetPersonServiceTest {
         personService = new PersonServiceImpl();
         personDtoList = new ArrayList<>();
 
-
         personDtoList.add(new PersonDto("Name1", "lastName1", "address", "city", 1234, "xxx", "email1"));
         personDtoList.add(new PersonDto("Name2", "lastName2", "address", "city", 1234, "xxx", "email2"));
         personDtoList.add(new PersonDto("Name3", "lastName3", "address", "city", 1234, "xxx", "email3"));
@@ -59,6 +58,24 @@ public class SafetyNetPersonServiceTest {
         PersonDto createdPerson = personService.createPerson(newPerson);
 
         assertEquals(newPerson.getLastName(), createdPerson.getLastName());
+    }
+
+    @Test
+    void testUpdatePerson_ExistingPerson_Success() {
+        // Arrange
+        String firstName = "OldFirstName";
+        String lastName = "OldLastName";
+        PersonDto updatePersonDto = new PersonDto("UpdatedCity", "UpdatedPhone", "UpdatedAddress", "city", 1234, "xxx", "mail");
+
+        // Act
+        PersonDto updatedPerson = personService.updatePerson(firstName, lastName, updatePersonDto);
+
+        // Assert
+        assertNotNull(updatedPerson);
+        assertEquals(updatePersonDto.getCity(), updatedPerson.getCity());
+        assertEquals(updatePersonDto.getPhone(), updatedPerson.getPhone());
+        assertEquals(updatePersonDto.getAddress(), updatedPerson.getAddress());
+        assertEquals(updatePersonDto.getZip(), updatedPerson.getZip());
     }
 
 }
