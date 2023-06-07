@@ -12,6 +12,7 @@ import java.util.List;
 @Service
 public class PhoneAlertService {
     public List<String> getPhoneNumbersByFireStation(int fireStationNumber, List<PersonDto> people, List<FireStationDTO> fireStations) {
+        //TODO: Faire attention la réponse peut renvoyer plusieurs fois le meme numéro
 
         List<String> phoneNumbers = new ArrayList<>();
 

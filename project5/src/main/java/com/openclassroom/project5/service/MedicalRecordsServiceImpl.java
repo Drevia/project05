@@ -24,8 +24,6 @@ public class MedicalRecordsServiceImpl implements MedicalRecordsService{
 
     private List<MedicalRecordsDTO> medicalRecordsDTOS = new ArrayList<>();
 
-    private ObjectMapper objectMapper = new ObjectMapper();
-
     @PostConstruct
     public void loadData() throws IOException {
         medicalRecordsDTOS = ReadDataFile.loadDataFromFile("medicalrecords", MedicalRecordsDTO.class);

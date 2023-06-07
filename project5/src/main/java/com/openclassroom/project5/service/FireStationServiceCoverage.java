@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -24,11 +25,6 @@ public class FireStationServiceCoverage {
 
     private final Logger logger = LogManager.getLogger(FireStationServiceCoverage.class);
 
-    private List<FireStationDTO> fireStationDTOList;
-
-    private List<PersonDto> personDtoList;
-
-    private List<MedicalRecordsDTO> medicalRecordsDTOList;
 
     @Autowired
     FireStationService fireStationService;
@@ -41,9 +37,9 @@ public class FireStationServiceCoverage {
 
     public FireStationCoverageDTO getFireStationCoverage(int stationNumber) {
         //possibilité de decaler l'appel du service dans le for a la place de DTOList ?
-        fireStationDTOList = fireStationService.returnAllFireStation();
-        personDtoList = personService.returnAllPersons();
-        medicalRecordsDTOList = medicalRecordsService.returnAllMedicalRecords();
+        final List<FireStationDTO> fireStationDTOList = fireStationService.returnAllFireStation();
+        final List<PersonDto> personDtoList = personService.returnAllPersons();
+        final List<MedicalRecordsDTO> medicalRecordsDTOList = medicalRecordsService.returnAllMedicalRecords();
 
         List<PersonDto> coveredPeople = new ArrayList<>();
         int adultCount = 0;
@@ -59,10 +55,10 @@ public class FireStationServiceCoverage {
                         coveredPeople.add(person);
 
                         //recherche du dossier médical correspondant a la personne
-                        MedicalRecordsDTO medicalRecord = findMedicalRecords(person);
+                        MedicalRecordsDTO medicalRecord = findMedicalRecords(person, medicalRecordsDTOList);
 
                         // Vérifiez si la personne est un adulte ou un enfant
-                        LocalDate birthdate = medicalRecord.getParsedBirthDate();
+                        LocalDate birthdate = Objects.requireNonNull(medicalRecord).getParsedBirthDate();
                         int age = Period.between(birthdate, LocalDate.now()).getYears();
                         if (age <= 18) {
                             childCount++;
@@ -88,7 +84,7 @@ public class FireStationServiceCoverage {
         }
     }
 
-    private MedicalRecordsDTO findMedicalRecords(PersonDto personDto) {
+    private MedicalRecordsDTO findMedicalRecords(PersonDto personDto, List<MedicalRecordsDTO> medicalRecordsDTOList) {
         for (MedicalRecordsDTO medicalRecord : medicalRecordsDTOList) {
             if (medicalRecord.getFirstName().equalsIgnoreCase(personDto.getFirstName())
                     && medicalRecord.getLastName().equalsIgnoreCase(personDto.getLastName())) {
