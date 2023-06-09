@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FireStationCoverageDTO {
-    private List<Residents> people;
+    private List<PersonDto> people;
     private int adultCount;
     private int childCount;
 }

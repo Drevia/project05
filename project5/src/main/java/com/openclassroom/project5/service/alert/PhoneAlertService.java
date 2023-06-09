@@ -1,4 +1,4 @@
-package com.openclassroom.project5.service;
+package com.openclassroom.project5.service.alert;
 
 import com.openclassroom.project5.model.FireStationDTO;
 import com.openclassroom.project5.model.PersonDto;

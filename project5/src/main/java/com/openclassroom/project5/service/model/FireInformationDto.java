@@ -15,13 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class FireInformationDto {
 
-    private String firstName;
+    private List<PersonInfoDto> residents;
 
-    private String lastName;
-
-    private String phoneNumber;
-
-    private int age;
-
-    private MedicalRecordsDTO medicalRecordsDTO;
+    private Integer fireStationNumber;
 }

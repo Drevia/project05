@@ -4,7 +4,7 @@ import com.openclassroom.project5.model.FireStationDTO;
 import com.openclassroom.project5.model.PersonDto;
 import com.openclassroom.project5.service.FireStationService;
 import com.openclassroom.project5.service.PersonService;
-import com.openclassroom.project5.service.PhoneAlertService;
+import com.openclassroom.project5.service.alert.PhoneAlertService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

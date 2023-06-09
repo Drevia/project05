@@ -1,7 +1,9 @@
-package com.openclassroom.project5.service;
+package com.openclassroom.project5.service.alert;
 
 import com.openclassroom.project5.model.MedicalRecordsDTO;
 import com.openclassroom.project5.model.PersonDto;
+import com.openclassroom.project5.service.MedicalRecordsService;
+import com.openclassroom.project5.service.PersonService;
 import com.openclassroom.project5.service.model.ChildAlertDto;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

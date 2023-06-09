@@ -1,9 +1,11 @@
-package com.openclassroom.project5.service;
+package com.openclassroom.project5.service.alert;
 
-import com.openclassroom.project5.controller.ChildAlertController;
 import com.openclassroom.project5.model.FireStationDTO;
 import com.openclassroom.project5.model.MedicalRecordsDTO;
 import com.openclassroom.project5.model.PersonDto;
+import com.openclassroom.project5.service.FireStationService;
+import com.openclassroom.project5.service.MedicalRecordsService;
+import com.openclassroom.project5.service.PersonService;
 import com.openclassroom.project5.service.model.FireStationCoverageDTO;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

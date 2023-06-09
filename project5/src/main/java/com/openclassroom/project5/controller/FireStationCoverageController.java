@@ -1,6 +1,6 @@
 package com.openclassroom.project5.controller;
 
-import com.openclassroom.project5.service.FireStationServiceCoverage;
+import com.openclassroom.project5.service.alert.FireStationServiceCoverage;
 import com.openclassroom.project5.service.model.FireStationCoverageDTO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

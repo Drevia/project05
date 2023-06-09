@@ -1,6 +1,6 @@
 package com.openclassroom.project5.controller;
 
-import com.openclassroom.project5.service.ChildAlertService;
+import com.openclassroom.project5.service.alert.ChildAlertService;
 import com.openclassroom.project5.service.model.ChildAlertDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
