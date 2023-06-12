@@ -23,8 +23,6 @@ public class Residents {
 
     private List<String> allergies;
 
-    private String birthDate;
-
     private String age;
 
 }

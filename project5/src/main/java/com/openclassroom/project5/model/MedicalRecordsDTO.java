@@ -32,6 +32,6 @@ public class MedicalRecordsDTO {
     }
 
     public Integer getAge(){
-        return Period.between(LocalDate.parse(birthdate), LocalDate.now()).getYears();
+        return Period.between(getParsedBirthDate(), LocalDate.now()).getYears();
     }
 }
