@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
 @Getter
@@ -28,5 +29,9 @@ public class MedicalRecordsDTO {
 
     public LocalDate getParsedBirthDate() {
         return LocalDate.parse(birthdate, dateFormatter);
+    }
+
+    public Integer getAge(){
+        return Period.between(LocalDate.parse(birthdate), LocalDate.now()).getYears();
     }
 }

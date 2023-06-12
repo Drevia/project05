@@ -19,10 +19,10 @@ import java.util.List;
 public class PersonMedicalInfoService {
 
     @Autowired
-    PersonService personService;
+    private PersonService personService;
 
     @Autowired
-    MedicalRecordsService medicalRecordsService;
+    private MedicalRecordsService medicalRecordsService;
 
     public List<PersonMedicalInfoDto> getPersonInfoByFullName(String firstName, String lastName) {
         List<PersonDto> personDtoList = personService.returnAllPersons();

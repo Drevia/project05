@@ -29,13 +29,13 @@ public class FireStationServiceCoverage {
 
 
     @Autowired
-    FireStationService fireStationService;
+    private FireStationService fireStationService;
 
     @Autowired
-    PersonService personService;
+    private PersonService personService;
 
     @Autowired
-    MedicalRecordsService medicalRecordsService;
+    private MedicalRecordsService medicalRecordsService;
 
     public FireStationCoverageDTO getFireStationCoverage(int stationNumber) {
         //possibilité de decaler l'appel du service dans le for a la place de DTOList ?
@@ -54,19 +54,22 @@ public class FireStationServiceCoverage {
                 //parcours des personnes pour trouver celles couvertes par la caserne
                 for (PersonDto person : personDtoList) {
                     if (person.getAddress().equalsIgnoreCase(fireStationAddress)) {
-                        coveredPeople.add(person);
 
                         //recherche du dossier médical correspondant a la personne
                         MedicalRecordsDTO medicalRecord = findMedicalRecords(person, medicalRecordsDTOList);
-
-                        // Vérifiez si la personne est un adulte ou un enfant
-                        LocalDate birthdate = Objects.requireNonNull(medicalRecord).getParsedBirthDate();
-                        int age = Period.between(birthdate, LocalDate.now()).getYears();
-                        if (age <= 18) {
-                            childCount++;
-                        } else {
-                            adultCount++;
+                        if (medicalRecord == null){
+                            logger.warn("No Medical Records found for : " + person.getFirstName() + " " + person.getLastName());
                         }
+                        else {
+                            coveredPeople.add(person);
+                            int age = medicalRecord.getAge();
+                            if (age <= 18) {
+                                childCount++;
+                            } else {
+                                adultCount++;
+                            }
+                        }
+
                     }
                 }
             }

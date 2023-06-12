@@ -15,9 +15,9 @@ import java.util.List;
 @NoArgsConstructor
 public class ChildAlertDto {
 
-    private List<PersonDto> child = new ArrayList<>();
+    private List<PersonDto> children = new ArrayList<>();
 
     public void addChild(PersonDto personDto) {
-        child.add(personDto);
+        children.add(personDto);
     }
 }

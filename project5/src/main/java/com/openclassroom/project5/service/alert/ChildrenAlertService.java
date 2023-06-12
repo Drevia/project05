@@ -17,30 +17,25 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChildAlertService {
+public class ChildrenAlertService {
 
     @Autowired
-    PersonService personService;
+    private PersonService personService;
 
     @Autowired
-    MedicalRecordsService medicalRecordsService;
-
-    List<MedicalRecordsDTO> medicalRecordsDTOS;
+    private MedicalRecordsService medicalRecordsService;
 
     public ChildAlertDto getChildAlertByAddress(String address) {
+        //TODO: Retourner l'age de l'enfant
         List<PersonDto> childs = personService.returnAllPersons();
-        medicalRecordsDTOS = medicalRecordsService.returnAllMedicalRecords();
+        List<MedicalRecordsDTO> medicalRecordsDTOS = medicalRecordsService.returnAllMedicalRecords();
         ChildAlertDto childAlertDto = new ChildAlertDto();
 
         for (PersonDto person : childs) {
             if (person.getAddress().equalsIgnoreCase(address)) {
-                MedicalRecordsDTO medicalRecordsDTO = findMedicalRecords(person);
-                if (medicalRecordsDTO != null) {
-                    LocalDate birthdate = medicalRecordsDTO.getParsedBirthDate();
-                    int age = Period.between(birthdate, LocalDate.now()).getYears();
-                    if (age <= 18){
-                        childAlertDto.addChild(person);
-                    }
+                MedicalRecordsDTO medicalRecordsDTO = findMedicalRecords(person, medicalRecordsDTOS);
+                if (medicalRecordsDTO != null && medicalRecordsDTO.getAge() <= 18) {
+                    childAlertDto.addChild(person);
                 }
             }
 
@@ -48,7 +43,7 @@ public class ChildAlertService {
         return childAlertDto;
     }
 
-    private MedicalRecordsDTO findMedicalRecords(PersonDto personDto) {
+    private MedicalRecordsDTO findMedicalRecords(PersonDto personDto, List<MedicalRecordsDTO> medicalRecordsDTOS) {
         for (MedicalRecordsDTO medicalRecord : medicalRecordsDTOS) {
             if (medicalRecord.getFirstName().equalsIgnoreCase(personDto.getFirstName())
                     && medicalRecord.getLastName().equalsIgnoreCase(personDto.getLastName())) {

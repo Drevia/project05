@@ -13,12 +13,12 @@ import java.util.List;
 public class PhoneAlertService {
     public List<String> getPhoneNumbersByFireStation(int fireStationNumber, List<PersonDto> people, List<FireStationDTO> fireStations) {
         //TODO: Faire attention la réponse peut renvoyer plusieurs fois le meme numéro
-
         List<String> phoneNumbers = new ArrayList<>();
 
         for (FireStationDTO fireStation : fireStations) {
             if (fireStation.getStation() == fireStationNumber) {
                 String fireStationAddress = fireStation.getAddress();
+
 
                 for (PersonDto person : people) {
                     if (person.getAddress().equalsIgnoreCase(fireStationAddress)) {

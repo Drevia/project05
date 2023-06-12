@@ -1,6 +1,6 @@
 package com.openclassroom.project5.controller;
 
-import com.openclassroom.project5.service.alert.ChildAlertService;
+import com.openclassroom.project5.service.alert.ChildrenAlertService;
 import com.openclassroom.project5.service.model.ChildAlertDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,13 +15,13 @@ public class ChildAlertController {
 
     private final Logger logger = LogManager.getLogger(ChildAlertController.class);
     @Autowired
-    ChildAlertService childAlertService;
+    private ChildrenAlertService childrenAlertService;
 
     @GetMapping("/childAlert")
     public ResponseEntity<?> getChildAlert(@RequestParam String address) {
-        ChildAlertDto childAlertDto = childAlertService.getChildAlertByAddress(address);
+        ChildAlertDto childAlertDto = childrenAlertService.getChildAlertByAddress(address);
 
-        if (childAlertDto.getChild().isEmpty()) {
+        if (childAlertDto.getChildren().isEmpty()) {
             logger.warn("No child found");
             return ResponseEntity.ok("");
         } else {

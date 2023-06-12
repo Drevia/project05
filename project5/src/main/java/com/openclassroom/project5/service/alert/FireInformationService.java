@@ -49,9 +49,8 @@ public class FireInformationService {
             personInfo.setLastName(resident.getLastName());
             personInfo.setPhoneNumber(resident.getPhone());
             personInfo.setMedicalRecords(getMedicalRecords(resident.getFirstName(), resident.getLastName(), medicalRecordsDTOList));
-            LocalDate birthdate = getMedicalRecords(resident.getFirstName(), resident.getLastName(), medicalRecordsDTOList).getParsedBirthDate();
-            int age = Period.between(birthdate, LocalDate.now()).getYears();
-            personInfo.setAge(age);
+            MedicalRecordsDTO medicalRecordsDTO = getMedicalRecords(resident.getFirstName(), resident.getLastName(), medicalRecordsDTOList);
+            personInfo.setAge(medicalRecordsDTO.getAge());
             residentInfoList.add(personInfo);
         }
         FireInformationDto fireInfo = new FireInformationDto();

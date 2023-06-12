@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class FireInformationController {
 
     @Autowired
-    FireInformationService fireInformationService;
+    private FireInformationService fireInformationService;
 
     @GetMapping("/fire")
     public ResponseEntity<?> getFireInformation(@RequestParam("address") String address) {
