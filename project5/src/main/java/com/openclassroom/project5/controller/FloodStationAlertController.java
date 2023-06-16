@@ -2,7 +2,6 @@ package com.openclassroom.project5.controller;
 
 import com.openclassroom.project5.service.alert.FloodStationAlertService;
 import com.openclassroom.project5.service.model.FloodStationDto;
-import com.openclassroom.project5.service.model.Residents;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

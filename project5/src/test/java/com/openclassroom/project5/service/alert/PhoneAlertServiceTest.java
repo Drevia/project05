@@ -20,7 +20,6 @@ class PhoneAlertServiceTest {
     private PhoneAlertService phoneAlertService;
 
     @Test
-    @DisplayName("Should return an empty list when there are no matching people for the fire station")
     void getPhoneNumbersByFireStationWhenNoMatchingPeople() {
         List<PersonDto> people = new ArrayList<>();
         List<FireStationDTO> fireStations = new ArrayList<>();
@@ -32,7 +31,6 @@ class PhoneAlertServiceTest {
     }
 
     @Test
-    @DisplayName("Should return an empty list when there are no matching fire stations")
     void getPhoneNumbersByFireStationWhenNoMatchingFireStations() {
         List<PersonDto> people = new ArrayList<>();
         List<FireStationDTO> fireStations = new ArrayList<>();
@@ -44,7 +42,6 @@ class PhoneAlertServiceTest {
     }
 
     @Test
-    @DisplayName("Should return a list of unique phone numbers when multiple people live at the fire station address")
     void getPhoneNumbersByFireStationWhenMultiplePeopleAtFireStationAddress() {
         List<PersonDto> people = new ArrayList<>();
         PersonDto person1 = new PersonDto("John", "Doe", "123 Main St", "Springfield", 12345, "555-1234", "john.doe@example.com");
@@ -68,7 +65,6 @@ class PhoneAlertServiceTest {
     }
 
     @Test
-    @DisplayName("Should return a list of phone numbers for people living at the fire station address")
     void getPhoneNumbersByFireStationWhenPeopleMatchFireStationAddress() {
         List<PersonDto> people = new ArrayList<>();
         PersonDto person1 = new PersonDto("John", "Doe", "123 Main St", "New York", 10001, "123-456-7890", "john.doe@example.com");
