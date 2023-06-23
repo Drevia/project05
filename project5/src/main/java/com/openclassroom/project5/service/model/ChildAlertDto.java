@@ -1,16 +1,14 @@
 package com.openclassroom.project5.service.model;
 
 import com.openclassroom.project5.model.PersonDto;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChildAlertDto {

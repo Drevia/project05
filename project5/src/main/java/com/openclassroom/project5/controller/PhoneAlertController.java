@@ -36,8 +36,10 @@ public class PhoneAlertController {
         List<String> phoneNumbers = phoneAlertService.getPhoneNumbersByFireStation(firestationNumber, people, fireStations);
 
         if (phoneNumbers.isEmpty()) {
+            logger.info("No phone numbers found");
             return ResponseEntity.notFound().build();
         } else {
+            logger.warn(phoneNumbers);
             return ResponseEntity.ok(phoneNumbers);
         }
     }

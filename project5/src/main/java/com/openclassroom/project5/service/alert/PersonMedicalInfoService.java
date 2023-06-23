@@ -17,7 +17,6 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class PersonMedicalInfoService {
-
     @Autowired
     private PersonService personService;
 
@@ -30,7 +29,7 @@ public class PersonMedicalInfoService {
         List<MedicalRecordsDTO> medicalRecordsDTOList = medicalRecordsService.returnAllMedicalRecords();
 
         for (PersonDto person : personDtoList) {
-            if (person.getLastName().equalsIgnoreCase(lastName)) {
+            if (person.getLastName().equalsIgnoreCase(lastName) && person.getFirstName().equalsIgnoreCase(firstName)) {
                 PersonMedicalInfoDto personInfo = new PersonMedicalInfoDto();
                 personInfo.setFirstName(person.getFirstName());
                 personInfo.setLastName(person.getLastName());

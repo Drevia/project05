@@ -30,11 +30,6 @@ public class PersonMedicalInfoServiceTest {
     @InjectMocks
     private PersonMedicalInfoService personMedicalInfoService;
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
-
     @Test
     public void testGetPersonInfoByFullName() {
         // Mocking personService

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @RestController
 public class SafetyNetController {
-
+    //TODO: ajouter des logger pour chaque debut de requete
     private final Logger logger = LogManager.getLogger(SafetyNetController.class);
 
     @Autowired
@@ -32,6 +32,8 @@ public class SafetyNetController {
 
     @DeleteMapping("/person/{firstName}/{lastName}")
     public ResponseEntity<Void> deletePerson(@PathVariable String firstName, @PathVariable String lastName) {
+        logger.info("Request to delete: "+ firstName + " " + lastName);
+
         if(personService.getPersonByFullName(firstName, lastName) != null)
         {
             logger.info("delete: "+ firstName + " " + lastName);
@@ -97,6 +99,7 @@ public class SafetyNetController {
 
     @PostMapping("/fireStation")
     public ResponseEntity<FireStationDTO> createFireStation(@RequestBody FireStationDTO fireStationDTO) {
+        logger.info("Creating: " + fireStationDTO);
         FireStationDTO fireStationDTOCreated = fireStationServiceImpl.createFireStation(fireStationDTO);
         return new ResponseEntity<>(fireStationDTOCreated, HttpStatus.CREATED);
     }
@@ -106,8 +109,10 @@ public class SafetyNetController {
                                                                @RequestBody FireStationDTO fireStationDTO) {
         FireStationDTO updateFireStation = fireStationServiceImpl.updateFireStation(station, address, fireStationDTO);
         if (updateFireStation != null) {
+            logger.info("Updating: " + fireStationDTO);
             return new ResponseEntity<>(updateFireStation, HttpStatus.OK);
         } else {
+            logger.warn("Cannot find FireStation: " + fireStationDTO);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

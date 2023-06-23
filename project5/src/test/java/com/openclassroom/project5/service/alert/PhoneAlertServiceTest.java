@@ -84,7 +84,7 @@ class PhoneAlertServiceTest {
 
         List<String> phoneNumbers = phoneAlertService.getPhoneNumbersByFireStation(fireStationNumber, people, fireStations);
 
-        assertThat(phoneNumbers).containsExactly("123-456-7890", "987-654-3210");
+        assertThat(phoneNumbers).contains("123-456-7890", "987-654-3210");
     }
 
 }

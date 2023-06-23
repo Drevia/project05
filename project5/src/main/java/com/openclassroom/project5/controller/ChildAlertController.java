@@ -19,13 +19,14 @@ public class ChildAlertController {
 
     @GetMapping("/childAlert")
     public ResponseEntity<?> getChildAlert(@RequestParam String address) {
+        logger.info("Searching child for adress: " + address);
         ChildAlertDto childAlertDto = childrenAlertService.getChildAlertByAddress(address);
 
         if (childAlertDto.getChildren().isEmpty()) {
             logger.warn("No child found");
             return ResponseEntity.ok("");
         } else {
-            logger.info(childAlertDto);
+            logger.info("Result: " + childAlertDto);
             return ResponseEntity.ok(childAlertDto);
         }
     }
