@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 
 @RestController
 public class SafetyNetController {
-    //TODO: ajouter des logger pour chaque debut de requete
     private final Logger logger = LogManager.getLogger(SafetyNetController.class);
 
     @Autowired
@@ -121,15 +120,20 @@ public class SafetyNetController {
     public ResponseEntity<Void> deleteFireStation(@PathVariable Integer station, @PathVariable String address) {
         if(fireStationServiceImpl.getFireStation(station, address) != null)
         {
+            logger.info("Deleting station number " + station);
             fireStationServiceImpl.deleteFireStation(station, address);
             return ResponseEntity.ok().build();
         } else {
+            logger.warn("Station not found");
             return ResponseEntity.notFound().build();
         }
     }
 
     @GetMapping("/communityEmail")
     public ResponseEntity<List<String>> getEmailFromCity(@RequestParam(name = "city") String cityName){
+
+
+        logger.info("Searching email from people living in " + cityName);
         List<String> emails = personService.getPersonsEmailByCity(cityName);
         return new ResponseEntity<>(emails, HttpStatus.OK);
     }

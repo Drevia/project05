@@ -22,6 +22,7 @@ public class ReadDataFile {
     static ObjectMapper objectMapper = new ObjectMapper();
 
     public static <T> List<T> loadDataFromFile(String entity, Class<T> elementClass) throws IOException {
+        logger.info("Extract entiy: " + entity);
         List<T> objects = null;
         File file = new File(ReadDataFile.class.getClassLoader().getResource("data.json").getFile());
 

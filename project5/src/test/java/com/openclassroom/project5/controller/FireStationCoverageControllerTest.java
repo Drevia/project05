@@ -1,5 +1,6 @@
 package com.openclassroom.project5.controller;
 
+import com.openclassroom.project5.model.FireStationDTO;
 import com.openclassroom.project5.model.MedicalRecordsDTO;
 import com.openclassroom.project5.model.PersonDto;
 import com.openclassroom.project5.model.PersonMedicalInfoDto;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,6 +41,9 @@ public class FireStationCoverageControllerTest {
 
     @Test
     void testGetFireStationCoverage_FoundCoverage() {
+
+
+        System.out.println(Arrays.toString(FireStationCoverageControllerTest.class.getAnnotations()));
         // Mock data
         int stationNumber = 1;
         FireStationCoverageDTO fireStationCoverageDTO = new FireStationCoverageDTO();
