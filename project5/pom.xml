@@ -44,19 +44,11 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.jacoco</groupId>
-			<artifactId>jacoco-maven-plugin</artifactId>
-			<version>0.8.5</version>
-			<type>maven-plugin</type>
-		</dependency>
-
-		<dependency>
+		<!--<dependency>
 			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-surefire-plugin</artifactId>
-			<version>3.1.2</version>
-		</dependency>
-
+			<artifactId>maven-assembly-plugin</artifactId>
+			<version>3.0.0</version>
+		</dependency>-->
 
 		<dependency>
 			<groupId>org.mockito</groupId>
@@ -98,15 +90,30 @@
 							<goal>report</goal>
 						</goals>
 					</execution>
+					<execution>
+						<id>jacoco-report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
 				</executions>
 				<configuration>
 					<excludes>
 						<exclude>**/service/model/*</exclude>
 						<exclude>**/model/*</exclude>
 						<exclude>com/openclassroom/project5/Project5SafenetApplication.class</exclude>
+						<exclude>**/data/*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.9.1</version>
+			</plugin>
+
 		</plugins>
 	</build>
 
