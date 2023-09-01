@@ -45,7 +45,7 @@ public class SafetyNetController {
     public ResponseEntity<?> createPerson(@RequestBody PersonDto personDto) {
         if (personService.getPersonByFullName(personDto.getFirstName(), personDto.getLastName()) != null){
             logger.warn("This person already exist");
-            return new ResponseEntity<>("Person already exist", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Person already exist", HttpStatus.BAD_REQUEST);
         } else {
             PersonDto personDtoCreated = personService.createPerson(personDto);
             logger.info("Created: " + personDto);
