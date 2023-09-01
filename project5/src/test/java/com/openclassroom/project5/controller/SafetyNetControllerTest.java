@@ -77,7 +77,7 @@ public class SafetyNetControllerTest {
     public void testCreatePerson() {
         PersonDto personDto = new PersonDto();
         when(personService.createPerson(personDto)).thenReturn(personDto);
-        ResponseEntity<PersonDto> response = controller.createPerson(personDto);
+        ResponseEntity<?> response = controller.createPerson(personDto);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(personDto, response.getBody());
     }

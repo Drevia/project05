@@ -10,6 +10,7 @@ import com.openclassroom.project5.service.model.PersonInfoDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -27,6 +28,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class FireStationCoverageControllerTest {
 
+    @InjectMocks
     private FireStationCoverageController fireStationCoverageController;
 
     @Mock
@@ -35,8 +37,6 @@ public class FireStationCoverageControllerTest {
     @BeforeEach
     void setup() {
         MockitoAnnotations.openMocks(this);
-        fireStationCoverageController = new FireStationCoverageController();
-        fireStationCoverageController.fireStationServiceCoverage = fireStationServiceCoverage;
     }
 
     @Test

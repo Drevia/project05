@@ -5,3 +5,10 @@ management:
     web:
       exposure:
         include: health, metrics, trace, info
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          filter:
+            org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG

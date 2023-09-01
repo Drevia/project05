@@ -3,9 +3,7 @@ package com.openclassroom.project5.controller;
 import com.openclassroom.project5.model.FireStationDTO;
 import com.openclassroom.project5.model.MedicalRecordsDTO;
 import com.openclassroom.project5.model.PersonDto;
-import com.openclassroom.project5.service.FireStationServiceImpl;
-import com.openclassroom.project5.service.MedicalRecordsServiceImpl;
-import com.openclassroom.project5.service.PersonService;
+import com.openclassroom.project5.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,20 +12,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class SafetyNetController {
     private final Logger logger = LogManager.getLogger(SafetyNetController.class);
 
     @Autowired
-    PersonService personService;
+    private PersonService personService;
 
     @Autowired
-    MedicalRecordsServiceImpl medicalService;
+    private MedicalRecordsService medicalService;
 
     @Autowired
-    FireStationServiceImpl fireStationServiceImpl;
+    private FireStationService fireStationServiceImpl;
 
     @DeleteMapping("/person/{firstName}/{lastName}")
     public ResponseEntity<Void> deletePerson(@PathVariable String firstName, @PathVariable String lastName) {
@@ -45,10 +42,15 @@ public class SafetyNetController {
     }
 
     @PostMapping("/person")
-    public ResponseEntity<PersonDto> createPerson(@RequestBody PersonDto personDto) {
-        PersonDto personDtoCreated = personService.createPerson(personDto);
-        logger.info("Created: " + personDto);
-        return new ResponseEntity<>(personDtoCreated, HttpStatus.CREATED);
+    public ResponseEntity<?> createPerson(@RequestBody PersonDto personDto) {
+        if (personService.getPersonByFullName(personDto.getFirstName(), personDto.getLastName()) != null){
+            logger.warn("This person already exist");
+            return new ResponseEntity<>("Person already exist", HttpStatus.FORBIDDEN);
+        } else {
+            PersonDto personDtoCreated = personService.createPerson(personDto);
+            logger.info("Created: " + personDto);
+            return new ResponseEntity<>(personDtoCreated, HttpStatus.CREATED);
+        }
     }
 
     @PutMapping("/person/{firstName}/{lastName}")

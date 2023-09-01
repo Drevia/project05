@@ -9,6 +9,8 @@ public interface FireStationService {
 
     List<FireStationDTO> returnAllFireStation();
 
+    FireStationDTO getFireStation(Integer station, String address);
+
     void deleteFireStation(Integer station, String address);
 
     FireStationDTO createFireStation(FireStationDTO fireStationDTO);

@@ -13,8 +13,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
-@NoArgsConstructor
 public class PersonServiceImpl implements PersonService {
 
     private List<PersonDto> personDtoList = new ArrayList<>();

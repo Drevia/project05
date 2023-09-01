@@ -20,13 +20,13 @@ public class PhoneAlertController {
 
     private final Logger logger = LogManager.getLogger(PhoneAlertController.class);
     @Autowired
-    PersonService personService;
+    private PersonService personService;
 
     @Autowired
-    FireStationService fireStationService;
+    private FireStationService fireStationService;
 
     @Autowired
-    PhoneAlertService phoneAlertService;
+    private PhoneAlertService phoneAlertService;
 
     @GetMapping("/phoneAlert")
     public ResponseEntity<?> getPhoneAlert(@RequestParam("firestation") int firestationNumber) {

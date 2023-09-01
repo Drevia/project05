@@ -5,6 +5,7 @@ import com.openclassroom.project5.service.alert.PersonMedicalInfoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -21,6 +22,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class PersonMedicalInfoControllerTest {
+    @InjectMocks
     private PersonMedicalInfoController personMedicalInfoController;
 
     @Mock
@@ -29,8 +31,6 @@ public class PersonMedicalInfoControllerTest {
     @BeforeEach
     void setup() {
         MockitoAnnotations.openMocks(this);
-        personMedicalInfoController = new PersonMedicalInfoController();
-        personMedicalInfoController.medicalInfoService = medicalInfoService;
     }
 
     @Test

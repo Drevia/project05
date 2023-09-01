@@ -17,7 +17,7 @@ public class PersonMedicalInfoController {
 
     private final Logger logger = LogManager.getLogger(PersonMedicalInfoController.class);
     @Autowired
-    PersonMedicalInfoService medicalInfoService;
+    private PersonMedicalInfoService medicalInfoService;
 
     @GetMapping("/personInfo")
     public ResponseEntity<List<PersonMedicalInfoDto>> getPersonInfo(@RequestParam("firstName") String firstName,

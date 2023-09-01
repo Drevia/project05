@@ -26,6 +26,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class PhoneAlertControllerTest {
+    @InjectMocks
     private PhoneAlertController phoneAlertController;
 
     @Mock
@@ -41,9 +42,6 @@ public class PhoneAlertControllerTest {
     void setup() {
         MockitoAnnotations.openMocks(this);
         phoneAlertController = new PhoneAlertController();
-        phoneAlertController.personService = personService;
-        phoneAlertController.fireStationService = fireStationService;
-        phoneAlertController.phoneAlertService = phoneAlertService;
     }
 
     @Test

@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
-@NoArgsConstructor
 public class FireStationServiceImpl implements FireStationService {
 
     private List<FireStationDTO> fireStationDTOS = new ArrayList<>();
@@ -28,6 +26,7 @@ public class FireStationServiceImpl implements FireStationService {
         return fireStationDTOS;
     }
 
+    @Override
     public FireStationDTO getFireStation(Integer station, String address) {
         return fireStationDTOS.stream()
                 .filter(fs -> fs.getStation().equals(station) && fs.getAddress().equals(address))

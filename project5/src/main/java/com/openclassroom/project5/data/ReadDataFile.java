@@ -17,7 +17,6 @@ import java.util.List;
 
 public class ReadDataFile {
 
-    //TODO: Mettre un Logger
     private static final Logger logger = LogManager.getLogger(ReadDataFile.class);
     static ObjectMapper objectMapper = new ObjectMapper();
 
